@@ -46,3 +46,6 @@
 [submodule "termux-x11/src/main/cpp/xserver"]
 	path = termux-x11/src/main/cpp/xserver
 	url = https://gitlab.freedesktop.org/xorg/xserver.git
+[submodule "termux-gui"]
+	path = termux-gui
+	url = https://github.com/termux/termux-gui
