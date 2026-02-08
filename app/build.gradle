@@ -50,7 +50,6 @@ android {
 
         implementation project(":terminal-view")
         implementation project(":termux-shared")
-        implementation project(':termux-gui:hbuffers')
         implementation project(':termux-gui')
 //        implementation project(":termux-x11")
         implementation (project(':termux-x11')){
