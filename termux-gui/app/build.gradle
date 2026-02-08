@@ -7,6 +7,10 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id "com.google.protobuf"
 }
+repositories {
+    google()
+    mavenCentral()
+}
 
 protobuf {
     protoc {
