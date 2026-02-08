@@ -1,6 +1,7 @@
 
 plugins {
     id "com.android.application"
+    id 'org.jetbrains.kotlin.android'
 }
 configurations {
     all*.exclude group: 'com.google.guava', module: 'listenablefuture'
