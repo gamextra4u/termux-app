@@ -46,6 +46,7 @@ android {
         implementation "io.noties.markwon:ext-strikethrough:$markwonVersion"
         implementation "io.noties.markwon:linkify:$markwonVersion"
         implementation "io.noties.markwon:recycler:$markwonVersion"
+        implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.22"
 
         implementation project(":terminal-view")
         implementation project(":termux-shared")
