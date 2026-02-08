@@ -17,4 +17,7 @@ include ':shell-loader:stub'
 include ':termux-x11'
 include ':float-ball'
 include ':termux-gui'
+include ':hbuffers'
 project(':termux-gui').projectDir = new File('termux-gui/app')
+project(':hbuffers').projectDir = new File('termux-gui/hbuffers')
+
