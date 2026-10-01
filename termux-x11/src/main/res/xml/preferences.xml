@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-        <SwitchPreferenceCompat
-            app:key="invertColors"
-            android:title="Invert Red/Blue Colors"
-            android:summary="Swap R/B color channels (fix orange Sonic/swapchain)"
-            app:defaultValue="false" /> xmlns:tools="http://schemas.android.com/tools"
+<PreferenceScreen xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceScreen app:key="main" app:title="@string/pref_main">
@@ -14,7 +9,8 @@
         <Preference app:title="@string/pref_other" app:fragment="other" />
         <Preference app:key="version" app:title="@string/pref_version" />
     </PreferenceScreen>
-    <PreferenceScreen app:key="output">
+        <PreferenceScreen app:key="output">
+        <SwitchPreferenceCompat app:key="invertColors" app:title="Invert Red/Blue Colors" app:summary="Swap R/B color channels (fix orange Sonic/swapchain)" app:defaultValue="false" />
         <ListPreference app:key="displayResolutionMode" app:defaultValue="native" app:entries="@array/displayResolutionVariants" app:entryValues="@array/displayResolutionVariants"  />
         <SeekBarPreference app:key="displayScale" app:defaultValue="100" app:min="30" android:max="300" app:seekBarIncrement="10" app:showSeekBarValue="true" app:updatesContinuously="true" />
         <ListPreference app:key="displayResolutionExact" app:defaultValue="1280x1024" app:entries="@array/displayResolution" app:entryValues="@array/displayResolution" tools:ignore="DuplicateSpeakableTextCheck" />
