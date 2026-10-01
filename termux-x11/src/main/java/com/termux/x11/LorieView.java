@@ -602,7 +602,6 @@ public class LorieView extends SurfaceView implements InputStub {
         getHolder().addCallback(mSurfaceCallback);
         clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
         nativeInit();
-        setInvertColors(MainActivity.getPrefs().invertColors.get());
         screenInfo = new ScreenInfo(this);
         cursorLocker = new CursorLocker(this);
     }
@@ -886,7 +885,8 @@ public class LorieView extends SurfaceView implements InputStub {
 
     @FastNative
     private native void nativeInit();
-        setInvertColors(MainActivity.getPrefs().invertColors.get());
+    @FastNative
+    public static native void setInvertColors(boolean invert);
     @FastNative private native void surfaceChanged(Surface surface);
     @FastNative static native void connect(int fd);
     @CriticalNative
