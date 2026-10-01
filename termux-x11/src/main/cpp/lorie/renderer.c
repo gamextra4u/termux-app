@@ -1,3 +1,4 @@
+#include <jni.h>
 #pragma clang diagnostic ignored "-Wunknown-pragmas"
 #pragma ide diagnostic ignored "UnusedParameter"
 #pragma ide diagnostic ignored "DanglingPointer"
@@ -106,8 +107,8 @@ static const char vertexShaderSrc[] =
     "}\n"
 
 // INVERT CHANNELS: Default now applies .bgra swizzle, and bgra applies standard
-static const char fragmentShaderSrc[] = FRAGMENT_SHADER(".bgra");
-static const char fragmentShaderBgraSrc[] = FRAGMENT_SHADER();
+static const char fragmentShaderSrc[] = FRAGMENT_SHADER();
+static const char fragmentShaderBgraSrc[] = FRAGMENT_SHADER(".bgra");
 
 static EGLDisplay egl_display = EGL_NO_DISPLAY;
 static EGLContext ctx = EGL_NO_CONTEXT;
@@ -133,6 +134,12 @@ static struct {
 
 GLuint g_texture_program = 0, gv_pos = 0, gv_coords = 0;
 GLuint g_texture_program_bgra = 0, gv_pos_bgra = 0, gv_coords_bgra = 0;
+
+
+static volatile bool g_invert_colors = false;
+void rendererSetInvertColors(bool invert) {
+    g_invert_colors = invert;
+}
 
 static void* rendererThread(void);
 
@@ -539,7 +546,11 @@ void rendererRedrawLocked(bool* waitingForBuffers) {
     LorieBuffer_bindTexture(buffer);
     if (desc->type == LORIEBUFFER_FD)
         xfactor = (float) desc->width/(float) desc->stride;
-    draw(0, -1.f, -1.f, 1.f, 1.f, xfactor, LorieBuffer_isRgba(buffer));
+    uint8_t use_bgra = LorieBuffer_isRgba(buffer);
+    if (g_invert_colors) {
+        use_bgra = !use_bgra;
+    }
+    draw(0, -1.f, -1.f, 1.f, 1.f, xfactor, use_bgra);
     fence = eglCreateSyncKHR(egl_display, EGL_SYNC_FENCE_KHR, NULL);
     glFlush();
 
@@ -796,4 +807,12 @@ static void pthreadCondVarProxyListenOtherCondVar(pthread_cond_t* var) {
     while(!proxy.relocked)
         pthread_cond_wait(&stateCond, &proxy.lock);
     pthread_mutex_unlock(&proxy.lock);
+}
+
+
+JNIEXPORT void JNICALL
+Java_com_termux_x11_LorieView_setInvertColors(JNIEnv *env, jclass clazz, jboolean invert) {
+    (void)env;
+    (void)clazz;
+    rendererSetInvertColors(invert);
 }
