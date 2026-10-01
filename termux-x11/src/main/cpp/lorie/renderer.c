@@ -105,8 +105,9 @@ static const char vertexShaderSrc[] =
     "   gl_FragColor = texture2D(texture, outTexCoords)" texture ";\n" \
     "}\n"
 
-static const char fragmentShaderSrc[] = FRAGMENT_SHADER();
-static const char fragmentShaderBgraSrc[] = FRAGMENT_SHADER(".bgra");
+// INVERT CHANNELS: Default now applies .bgra swizzle, and bgra applies standard
+static const char fragmentShaderSrc[] = FRAGMENT_SHADER(".bgra");
+static const char fragmentShaderBgraSrc[] = FRAGMENT_SHADER();
 
 static EGLDisplay egl_display = EGL_NO_DISPLAY;
 static EGLContext ctx = EGL_NO_CONTEXT;
